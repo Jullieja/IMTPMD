@@ -336,6 +336,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (success) {
                 //Van loginscherm naar kies jaar scherm
                 Intent intent = new Intent(LoginActivity.this, PickYearActivity.class);
+                //Username overzetten naar string
+                String username = mUsername.toString();
+
+                //Nieuwe bundle aanmaken en username in opslaan
+                Bundle b = new Bundle();
+                b.putString("username", username);
+
+                intent.putExtras(b);
                 startActivity(intent);
                 finish();
             } else {
