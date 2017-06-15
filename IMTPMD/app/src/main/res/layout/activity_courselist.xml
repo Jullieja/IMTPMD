@@ -30,7 +30,7 @@
                     android:textAlignment="textStart" />
 
                 <TextView
-                    android:id="@+id/check"
+                    android:id="@+id/behaald"
                     android:layout_width="63dp"
                     android:layout_height="33dp"
                     android:layout_weight="0.34"
@@ -50,6 +50,6 @@
     android:id="@+id/my_list_view"
     android:layout_width="wrap_content"
     android:layout_height="274dp"
-            android:layout_weight="0.57" />
+            android:layout_weight="0.84" />
 
 </LinearLayout>
