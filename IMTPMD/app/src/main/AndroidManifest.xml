@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Design.Light">
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name"></activity>
+            android:label="@string/app_name" />
         <activity android:name=".algemeen_info" />
         <activity android:name=".CourseListActivity">
             <intent-filter>
@@ -26,7 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".PickYearActivity" />
-        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".EditActivity" />
+        <activity android:name=".TestMainActivity" />
+        <activity android:name=".TestSecondActivity"></activity>
     </application>
 
 </manifest>

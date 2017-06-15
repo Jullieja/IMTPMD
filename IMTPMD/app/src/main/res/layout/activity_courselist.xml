@@ -27,7 +27,7 @@
                     android:layout_height="33dp"
                     android:layout_weight="0.21"
                     android:text="ECT:"
-                    android:textAlignment="center" />
+                    android:textAlignment="textStart" />
 
                 <TextView
                     android:id="@+id/check"
