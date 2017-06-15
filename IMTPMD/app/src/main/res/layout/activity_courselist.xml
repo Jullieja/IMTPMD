@@ -4,10 +4,52 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".algemeen_info">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".algemeen_info"
+    android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/course"
+                    android:layout_width="63dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="0.19"
+                    android:text="VAK:"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/ects"
+                    android:layout_width="63dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="0.21"
+                    android:text="ECT:"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/check"
+                    android:layout_width="63dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="0.34"
+                    android:text="BEHAALD:"
+                    android:textAlignment="textStart" />
+
+                <TextView
+                    android:id="@+id/grade"
+                    android:layout_width="63dp"
+                    android:layout_height="33dp"
+                    android:layout_weight="0.38"
+                    android:text="CIJFER:"
+                    android:textAlignment="textStart" />
+        </LinearLayout>
+
         <ListView
     android:id="@+id/my_list_view"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"/>
+    android:layout_height="274dp"
+            android:layout_weight="0.57" />
 
 </LinearLayout>
