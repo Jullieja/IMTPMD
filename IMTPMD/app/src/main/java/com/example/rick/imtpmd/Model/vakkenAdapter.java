@@ -30,7 +30,7 @@ public class vakkenAdapter extends ArrayAdapter<vakModel> {
             vh.naam = (TextView) convertView.findViewById(R.id.name);
             vh.ects = (TextView) convertView.findViewById(R.id.ects);
             vh.cijfer = (TextView) convertView.findViewById(R.id.cijfer);
-            //vh.behaald = (CheckBox) convertView.findViewById(R.id.grade);
+            vh.behaald = (CheckBox) convertView.findViewById(R.id.behaald);
             convertView.setTag(vh);
         } else {
             vh = (ViewHolder) convertView.getTag();
@@ -41,7 +41,7 @@ public class vakkenAdapter extends ArrayAdapter<vakModel> {
         vh.naam.setText((CharSequence) vak.naam);
         vh.ects.setText((CharSequence) vak.getEcts());
         vh.cijfer.setText((CharSequence) vak.getCijfer());
-        //vh.behaald.setText((CharSequence) vak.behaald);
+        vh.behaald.setChecked((boolean) vak.behaald);
         return convertView;
     }
 

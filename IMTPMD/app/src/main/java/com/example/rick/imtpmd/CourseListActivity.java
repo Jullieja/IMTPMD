@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.rick.imtpmd.Model.ApiCall;
 import com.example.rick.imtpmd.Model.vakModel;
 import com.example.rick.imtpmd.Model.vakkenAdapter;
 
@@ -38,7 +39,12 @@ public class CourseListActivity extends AppCompatActivity {
                  }
              }
         );
-        vakModels.add(new vakModel("IKPMD", 3, 3.4, 0, null,null,false));
+        vakModels.add(new vakModel("IKPMD", 3, 3.4, 0, null,null,true));
+        vakModels.add(new vakModel("ABC", 3, 3.4, 0, null,null,false));
+        vakModels.add(new vakModel("DEF", 3, 3.4, 0, null,null,true));
+        new ApiCall("http://rickvanmegen.nl/lijst.json").execute();
+
+
 //        vakModels.add(new vakModel("IOPR1", "4", "100"));
 //        vakModels.add(new vakModel("IPSEN", "6", "1000"));
 //        vakModels.add(new vakModel("IKPMD", "3", "10"));
