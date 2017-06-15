@@ -8,8 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.rick.imtpmd.Model.CourseModel;
-import com.example.rick.imtpmd.Model.CourseListAdapter;
+import com.example.rick.imtpmd.Model.vakModel;
+import com.example.rick.imtpmd.Model.vakkenAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +17,8 @@ import java.util.List;
 public class CourseListActivity extends AppCompatActivity {
 
     private ListView mListView;
-    private CourseListAdapter mAdapter;
-    private List<CourseModel> courseModels = new ArrayList<>();
+    private vakkenAdapter mAdapter;
+    private List<vakModel> vakModels = new ArrayList<>();
     // WE MAY NEED A METHOD TO FILL THIS. WE COULD RETRIEVE THE DATA FROM AN ONLINE JSON SOURCE
 
     @Override
@@ -35,17 +35,17 @@ public class CourseListActivity extends AppCompatActivity {
                  }
              }
         );
-        courseModels.add(new CourseModel("IKPMD", "3", "100"));
-        courseModels.add(new CourseModel("IOPR1", "4", "100"));
-        courseModels.add(new CourseModel("IPSEN", "6", "1000"));
-        courseModels.add(new CourseModel("IKPMD", "3", "10"));
-        courseModels.add(new CourseModel("IOPR1", "4", "10"));
-        courseModels.add(new CourseModel("IPSEN", "6", "10"));
-        courseModels.add(new CourseModel("IKPMD", "3", "10"));
-        courseModels.add(new CourseModel("IOPR1", "4", "10"));
-        courseModels.add(new CourseModel("IPSEN", "6", "10"));
+        vakModels.add(new vakModel("IKPMD", 3, 3.4, 0, null,null,false));
+//        vakModels.add(new vakModel("IOPR1", "4", "100"));
+//        vakModels.add(new vakModel("IPSEN", "6", "1000"));
+//        vakModels.add(new vakModel("IKPMD", "3", "10"));
+//        vakModels.add(new vakModel("IOPR1", "4", "10"));
+//        vakModels.add(new vakModel("IPSEN", "6", "10"));
+//        vakModels.add(new vakModel("IKPMD", "3", "10"));
+//        vakModels.add(new vakModel("IOPR1", "4", "10"));
+//        vakModels.add(new vakModel("IPSEN", "6", "10"));
 
-        mAdapter = new CourseListAdapter(CourseListActivity.this, 0, courseModels);
+        mAdapter = new vakkenAdapter(CourseListActivity.this, 0, vakModels);
         mListView.setAdapter(mAdapter);
     }
 }
