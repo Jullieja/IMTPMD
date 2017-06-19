@@ -45,6 +45,7 @@ public class CourseListActivity extends AppCompatActivity {
 
 
 
+
 //        vakModels.add(new vakModel("IOPR1", "4", "100"));
 //        vakModels.add(new vakModel("IPSEN", "6", "1000"));
 //        vakModels.add(new vakModel("IKPMD", "3", "10"));
@@ -54,7 +55,7 @@ public class CourseListActivity extends AppCompatActivity {
 //        vakModels.add(new vakModel("IOPR1", "4", "10"));
 //        vakModels.add(new vakModel("IPSEN", "6", "10"));
 
-        mAdapter = new vakkenAdapter(CourseListActivity.this, 0, vakModels);
-        mListView.setAdapter(mAdapter);
+//        mAdapter = new vakkenAdapter(CourseListActivity.this, 0, vakModels);
+//        mListView.setAdapter(mAdapter);
     }
 }

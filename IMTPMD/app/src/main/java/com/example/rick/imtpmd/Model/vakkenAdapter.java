@@ -12,9 +12,9 @@ import com.example.rick.imtpmd.R;
 
 import java.util.List;
 
-public class vakkenAdapter extends ArrayAdapter<vakModel> {
+public class vakkenAdapter extends ArrayAdapter<Vak> {
 
-    public vakkenAdapter(Context context, int resource, List<vakModel> objects){
+    public vakkenAdapter(Context context, int resource, List<Vak> objects){
         super(context, resource, objects);
     }
 
@@ -29,19 +29,19 @@ public class vakkenAdapter extends ArrayAdapter<vakModel> {
             //koppeling van viewholder aan de view
             vh.naam = (TextView) convertView.findViewById(R.id.name);
             vh.ects = (TextView) convertView.findViewById(R.id.ects);
-            vh.cijfer = (TextView) convertView.findViewById(R.id.cijfer);
-            vh.behaald = (CheckBox) convertView.findViewById(R.id.behaald);
+//            vh.cijfer = (TextView) convertView.findViewById(R.id.grade);
+//            vh.behaald = (CheckBox) convertView.findViewById(R.id.passed);
             convertView.setTag(vh);
         } else {
             vh = (ViewHolder) convertView.getTag();
         }
 
         //koppeling van viewholder aan model
-        vakModel vak = getItem(position);
-        vh.naam.setText((CharSequence) vak.naam);
+        Vak vak = getItem(position);
+        vh.naam.setText((CharSequence) vak.getName());
         vh.ects.setText((CharSequence) vak.getEcts());
-        vh.cijfer.setText((CharSequence) vak.getCijfer());
-        vh.behaald.setChecked((boolean) vak.behaald);
+//        vh.cijfer.setText((CharSequence) vak.getGrade());
+//        vh.behaald.setChecked((boolean) vak.passed);
         return convertView;
     }
 
@@ -53,9 +53,9 @@ public class vakkenAdapter extends ArrayAdapter<vakModel> {
 
         TextView naam;
         TextView ects;
-        TextView cijfer;
-        CheckBox behaald;
-        //public int jaar;
+        //TextView cijfer;
+        //CheckBox behaald;
+        //public int year;
         //public String soort;
         //public String spec;
 

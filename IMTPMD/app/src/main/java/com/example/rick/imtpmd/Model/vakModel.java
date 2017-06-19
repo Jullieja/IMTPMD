@@ -6,12 +6,12 @@ package com.example.rick.imtpmd.Model;
 
 public class vakModel {
 
-    public String getNaam() {
-        return naam;
+    public String getName() {
+        return name;
     }
 
-    public void setNaam(String naam) {
-        naam = naam;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEcts() {
@@ -19,27 +19,27 @@ public class vakModel {
     }
 
     public void setEcts(int ects) {
-        ects = ects;
+        this.ects = ects;
     }
 
-    public void setCijfer(double cijfer) {
-        this.cijfer = cijfer;
+    public void setGrade(double grade) {
+        this.grade = grade;
     }
 
-    public int getJaar() {
-        return jaar;
+    public int getYear() {
+        return year;
     }
 
-    public void setJaar(int jaar) {
-        this.jaar = jaar;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public boolean isBehaald() {
-        return behaald;
+    public boolean isPassed() {
+        return passed;
     }
 
-    public void setBehaald(boolean behaald) {
-        this.behaald = behaald;
+    public void setPassed(boolean passed) {
+        this.passed = passed;
     }
 
     public String getSoort() {
@@ -58,25 +58,25 @@ public class vakModel {
         this.spec = spec;
     }
 
-    public String naam;
+    public String name;
     public int ects;
-    public double cijfer;
-    public int jaar;
-    public boolean behaald;
+    public double grade;
+    public int year;
+    public boolean passed;
     public String soort;
     public String spec;
 
-    public vakModel(String naam, int ects, double cijfer, int jaar, String soort, String spec,boolean behaald) {
-        this.naam = naam;
+    public vakModel(String name, int ects, double grade, int year, String soort, String spec, boolean passed) {
+        this.name = name;
         this.ects = ects;
-        this.cijfer = cijfer;
-        this.jaar = jaar;
+        this.grade = grade;
+        this.year = year;
         this.soort = soort;
         this.spec = spec;
-        this.behaald=behaald;
+        this.passed = passed;
     }
-    public String getCijfer(){
-        return String.valueOf(cijfer);
+    public String getGrade(){
+        return String.valueOf(grade);
     }
 
 

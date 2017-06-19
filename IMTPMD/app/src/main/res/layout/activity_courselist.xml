@@ -27,10 +27,10 @@
                     android:layout_height="33dp"
                     android:layout_weight="0.21"
                     android:text="ECT:"
-                    android:textAlignment="center" />
+                    android:textAlignment="textStart" />
 
                 <TextView
-                    android:id="@+id/behaald"
+                    android:id="@+id/passed"
                     android:layout_width="63dp"
                     android:layout_height="33dp"
                     android:layout_weight="0.34"
@@ -47,9 +47,9 @@
         </LinearLayout>
 
         <ListView
-    android:id="@+id/my_list_view"
-    android:layout_width="wrap_content"
-    android:layout_height="274dp"
+            android:id="@+id/my_list_view"
+            android:layout_width="wrap_content"
+            android:layout_height="274dp"
             android:layout_weight="0.84" />
 
 </LinearLayout>

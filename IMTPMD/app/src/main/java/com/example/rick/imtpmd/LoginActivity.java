@@ -378,10 +378,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     Intent intent = new Intent(LoginActivity.this, PickYearActivity.class);
                     //Username overzetten naar string
                     String username = mUsername.toString();
+                    String id = String.valueOf(user.getId());
                     found = true;
                     //Nieuwe bundle aanmaken en username in opslaan
                     Bundle b = new Bundle();
                     b.putString("username", username);
+                    b.putString("user_id",id);
 
                     intent.putExtras(b);
                     startActivity(intent);
@@ -400,7 +402,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                //Van loginscherm naar kies jaar scherm
+                //Van loginscherm naar kies year scherm
                 Intent intent = new Intent(LoginActivity.this, PickYearActivity.class);
                 //Username overzetten naar string
                 String username = mUsername.toString();
@@ -424,7 +426,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                //Van loginscherm naar kies jaar scherm
+                //Van loginscherm naar kies year scherm
                 Intent intent = new Intent(LoginActivity.this, PickYearActivity.class);
                 //Username overzetten naar string
                 String username = mUsername.toString();
