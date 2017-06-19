@@ -87,7 +87,7 @@ public class YearOneActivity extends AppCompatActivity {
 
             Vak[] vakken = gson.fromJson(response, Vak[].class);
             for (Vak vak : vakken) {
-                vak.setUser_id(b.getString("user_id"));
+                //vak.setUser_id(b.getString("user_id"));
                 vak.setGrade("10");
                 if(vak.getYear().equals("1")){
                     vakModels.add(vak);

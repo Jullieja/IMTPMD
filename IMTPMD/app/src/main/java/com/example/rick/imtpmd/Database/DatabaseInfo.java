@@ -18,7 +18,7 @@ public class DatabaseInfo {
         public static final String vak_name = "vak_name";
         public static final String user_id = "user_id";
         public static final String grade = "grade";
-        public static final String behaald = "behaald";
+        public static final String passed = "passed";
     }
 
 }

@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static SQLiteDatabase mySQLDB;
     private static DatabaseHelper mInstance;
-    public static final String dbName = "course.db";
+    public static final String dbName = "user.db";
     public static final int dbVersion = 1;
 
     public DatabaseHelper(Context ctx){
@@ -35,7 +35,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + DatabaseInfo.CourseTables.user + " (" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 DatabaseInfo.CourseColumn.vak_name + " TEXT," +
                 DatabaseInfo.CourseColumn.user_id + " TEXT," +
-                DatabaseInfo.CourseColumn.grade + " TEXT);"
+                DatabaseInfo.CourseColumn.grade + " TEXT,"+
+                DatabaseInfo.CourseColumn.passed + " TEXT);"
         );
 
     }
