@@ -77,10 +77,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
-        populateAutoComplete();
+        //populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        /*mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
@@ -90,6 +90,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
         });
+        */
 
         Button mloginButton = (Button) findViewById(R.id.loginButton);
         mloginButton.setOnClickListener(new OnClickListener() {
@@ -154,7 +155,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private void attemptLogin() {
         if (mAuthTask != null) {
-            return;
+            //return;
         }
 
         // Reset errors.
@@ -164,6 +165,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Store values at the time of the login attempt.
         String email = mUsernameView.getText().toString();
         String password = mPasswordView.getText().toString();
+        //new UserLoginTask(email, password);
 
         boolean cancel = false;
         View focusView = null;
@@ -193,10 +195,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true);
+            ;
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+            showProgress(false);
         }
+
     }
 
     private boolean isEmailValid(String username) {
