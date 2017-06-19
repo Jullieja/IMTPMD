@@ -20,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +31,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.rick.imtpmd.Model.User;
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -197,8 +205,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isPasswordValid(String password) {
+        //if(password.equals("")){
+        //    return false;
+        //}
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 2;
     }
 
     /**
@@ -295,7 +306,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<Void, Void, String> {
 
         private final String mUsername;
         private final String mPassword;
@@ -306,9 +317,30 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         @Override
-        protected Boolean doInBackground(Void... params) {
+        protected String doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
+            try {
+                URL url = new URL("http://www.rickvanmegen.nl/lijst.json");
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                try {
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                    StringBuilder stringBuilder = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    bufferedReader.close();
+                    return stringBuilder.toString();
+                }
+                finally{
+                    urlConnection.disconnect();
+                }
+            }
+            catch(Exception e) {
+                Log.e("ERROR", e.getMessage(), e);
+                return null;
+            }
+            /*
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
@@ -326,10 +358,40 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             // TODO: register the new account here.
             return true;
+            */
+            //return "";
         }
 
-        @Override
-        protected void onPostExecute(final Boolean success) {
+        //@Override
+        protected void onPostExecute(final String response) {
+            Gson gson = new Gson();
+            User[] users = gson.fromJson(response, User[].class);
+            Log.i( "INFO" , " : "+response );
+            boolean found = false;
+            for (User user: users){
+                if(user.getName().equals(mUsername )&user.getPasswd().equals(mPassword )){
+                    Log.i( "Found" , " : "+mUsername+mPassword );
+                    Intent intent = new Intent(LoginActivity.this, PickYearActivity.class);
+                    //Username overzetten naar string
+                    String username = mUsername.toString();
+                    found = true;
+                    //Nieuwe bundle aanmaken en username in opslaan
+                    Bundle b = new Bundle();
+                    b.putString("username", username);
+
+                    intent.putExtras(b);
+                    startActivity(intent);
+                    finish();
+
+                }
+            }
+            if(found == false){
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
+
+            /* // OLDOLDOLDOLDOLDOLD
+
             mAuthTask = null;
             showProgress(false);
 
@@ -350,6 +412,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
+            */
+
+
+
+            /*mAuthTask = null;
+            showProgress(false);
+
+            if (success) {
+                //Van loginscherm naar kies jaar scherm
+                Intent intent = new Intent(LoginActivity.this, PickYearActivity.class);
+                //Username overzetten naar string
+                String username = mUsername.toString();
+
+                //Nieuwe bundle aanmaken en username in opslaan
+                Bundle b = new Bundle();
+                b.putString("username", username);
+
+                intent.putExtras(b);
+                startActivity(intent);
+                finish();
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }*/
+
         }
 
         @Override
