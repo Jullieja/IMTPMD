@@ -1,4 +1,4 @@
-package com.example.rick.helloworld.Model;
+package com.example.rick.imtpmd.Model;
 
 /**
  * Created by rick on 17-5-2017.

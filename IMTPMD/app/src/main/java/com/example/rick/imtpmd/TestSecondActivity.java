@@ -1,9 +1,13 @@
 package com.example.rick.imtpmd;
 
+import android.content.ContentValues;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.rick.imtpmd.Database.DatabaseHelper;
+import com.example.rick.imtpmd.Database.DatabaseInfo;
 
 public class TestSecondActivity extends AppCompatActivity {
 
@@ -19,6 +23,5 @@ public class TestSecondActivity extends AppCompatActivity {
         SharedPreferences example = getSharedPreferences(PREFS, 0);
         String userString = example.getString("userMessage", "Nothing Found");
         tv.setText(userString);
-
     }
 }
