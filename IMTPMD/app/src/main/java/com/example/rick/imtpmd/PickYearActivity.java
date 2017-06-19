@@ -34,7 +34,7 @@ public class PickYearActivity extends AppCompatActivity {
         jaar1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Knop jaar 1 ingedrukt", "Start YearOneActivity");
+                Log.d("Knop year 1 ingedrukt", "Start YearOneActivity");
                 startActivity(new Intent(PickYearActivity.this, YearOneActivity.class));
             }
         });

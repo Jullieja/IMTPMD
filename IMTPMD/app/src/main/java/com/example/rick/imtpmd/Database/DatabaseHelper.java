@@ -32,8 +32,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + DatabaseInfo.CourseTables.course + " (" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                DatabaseInfo.CourseColumn.name + " TEXT," +
+        db.execSQL("CREATE TABLE " + DatabaseInfo.CourseTables.user + " (" + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DatabaseInfo.CourseColumn.vak_name + " TEXT," +
+                DatabaseInfo.CourseColumn.user_id + " TEXT," +
                 DatabaseInfo.CourseColumn.grade + " TEXT);"
         );
 
@@ -41,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+ DatabaseInfo.CourseTables.course);
+        db.execSQL("DROP TABLE IF EXISTS "+ DatabaseInfo.CourseTables.user);
         onCreate(db);
     }
 

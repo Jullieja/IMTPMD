@@ -35,7 +35,7 @@
         android:id="@+id/jaar2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="jaar 2"
+        android:text="year 2"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"

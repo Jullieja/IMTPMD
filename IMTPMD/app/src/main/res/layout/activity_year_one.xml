@@ -6,4 +6,12 @@
     android:layout_height="match_parent"
     tools:context="com.example.rick.imtpmd.YearOneActivity">
 
+    <ListView
+        android:id="@+id/my_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="495dp"
+        android:layout_weight="0.84"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="0dp" />
+
 </android.support.constraint.ConstraintLayout>

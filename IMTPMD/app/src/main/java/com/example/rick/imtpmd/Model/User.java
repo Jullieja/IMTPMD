@@ -6,15 +6,18 @@ package com.example.rick.imtpmd.Model;
 
 public class User {
 
-
+    private String naam;
+    private String passwd;
+    private String spec;
+    private int id;
     public User(int id, String name, String passwd, String spec) {
         this.id = id;
-        this.name = name;
+        this.naam = name;
         this.passwd = passwd;
         this.spec = spec;
     }
 
-    private int id;
+
 
     public int getId() {
         return id;
@@ -25,11 +28,11 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return naam;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.naam = name;
     }
 
     public String getPasswd() {
@@ -48,9 +51,7 @@ public class User {
         this.spec = spec;
     }
 
-    private String name;
-    private String passwd;
-    private String spec;
+
 
 
 }
