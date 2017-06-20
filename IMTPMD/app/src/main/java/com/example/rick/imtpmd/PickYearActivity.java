@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class PickYearActivity extends AppCompatActivity {
     String logged_in_username;
     String user_id;
+    String spec;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class PickYearActivity extends AppCompatActivity {
             String username = b.getString("username");
             logged_in_username = b.getString("username");
             user_id = b.getString("user_id");
+            spec = b.getString("spec");
             //Informatie weergeven dmv toast
             Context context = getApplicationContext();
             CharSequence text = "Je bent succesvol ingelogd als " + username;
@@ -42,6 +44,37 @@ public class PickYearActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putString("username", logged_in_username);
                 b.putString("user_id",user_id);
+
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
+        Button jaar2 = (Button) findViewById(R.id.jaar2);
+        jaar2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Knop year 2 ingedrukt", "Start YearTwoActivity");
+                Intent intent = new Intent(PickYearActivity.this, YearTwoActivity.class);
+                Bundle b = new Bundle();
+                b.putString("username", logged_in_username);
+                b.putString("user_id", user_id);
+                b.putString("spec", spec);
+
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
+        Button jaar34 = (Button) findViewById(R.id.jaar34);
+        jaar34.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Knop year 34 ingedrukt", "Start YearThreeFourActivity");
+                Intent intent = new Intent(PickYearActivity.this, YearThreeFourActivity.class);
+                Bundle b = new Bundle();
+                b.putString("username", logged_in_username);
+                b.putString("user_id", user_id);
 
                 intent.putExtras(b);
                 startActivity(intent);

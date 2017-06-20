@@ -383,11 +383,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     //Username overzetten naar string
                     String username = mUsername.toString();
                     String id = String.valueOf(user.getId());
+                    String spec = String.valueOf(user.getSpec());
                     found = true;
                     //Nieuwe bundle aanmaken en username in opslaan
                     Bundle b = new Bundle();
                     b.putString("username", username);
                     b.putString("user_id",id);
+                    b.putString("spec", spec);
 
                     intent.putExtras(b);
                     startActivity(intent);

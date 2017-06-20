@@ -8,11 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.rick.imtpmd.Model.User;
 import com.example.rick.imtpmd.Model.Vak;
-import com.example.rick.imtpmd.Model.vakModel;
 import com.example.rick.imtpmd.Model.vakkenAdapter;
 import com.google.gson.Gson;
 
@@ -23,14 +21,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YearOneActivity extends AppCompatActivity {
+public class YearThreeFourActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_year_one);
+        setContentView(R.layout.activity_year_three_four);
 
-        new VakkenTask().execute();
+        new YearThreeFourActivity.VakkenTask().execute();
     }
 
     public class VakkenTask extends AsyncTask<Void, Void, String> {
@@ -70,20 +68,18 @@ public class YearOneActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(final String response) {
-            String username="";
-            String user_id="";
-            String spec = "";
+            String username = "";
+            String user_id = "";
             final User logginuser = new User(99,"test","test","test" );
 
             Bundle b = getIntent().getExtras();
             if (b != null) {
                 username = b.getString("username");
                 user_id = b.getString("user_id");
-                spec = b.getString("spec");
                 logginuser.setId(Integer.parseInt(user_id));
             }
 
-            Log.i("INFO", " : " + username + " " + user_id + " " + spec);
+            Log.i("INFO", " : " + username + " " + user_id);
             Gson gson = new Gson();
 
 
@@ -91,7 +87,7 @@ public class YearOneActivity extends AppCompatActivity {
             for (Vak vak : vakken) {
                 //vak.setUser_id(b.getString("user_id"));
                 vak.setGrade("10");
-                if(vak.getYear().equals("1")){
+                if(vak.getYear().equals("34")){
                     vakModels.add(vak);
                 }
 
@@ -99,27 +95,24 @@ public class YearOneActivity extends AppCompatActivity {
 
             mListView = (ListView) findViewById(R.id.my_list_view);
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                 @Override
-                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                     Intent intent = new Intent(YearOneActivity.this, EditActivity.class);
-                     Bundle b = new Bundle();
-                     b.putString("user_id",String.valueOf(logginuser.getId()));
-//                     b.putString("spec", String.valueOf(spec)));
-                     b.putString("vak",vakModels.get(position).getName());
-                     intent.putExtras(b);
-                     startActivity(intent);
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    Intent intent = new Intent(YearThreeFourActivity.this, EditActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("user_id",String.valueOf(logginuser.getId()));
+                    b.putString("vak",vakModels.get(position).getName());
+                    intent.putExtras(b);
+                    startActivity(intent);
 
-                     //Toast t = Toast.makeText(YearOneActivity.this,"Click " + vakModels.get(position).getName(),Toast.LENGTH_SHORT);
-                     //t.show();
-                 }
-             }
+                    //Toast t = Toast.makeText(YearOneActivity.this,"Click " + vakModels.get(position).getName(),Toast.LENGTH_SHORT);
+                    //t.show();
+                                                 }
+                                             }
             );
             //boolean found = false;
 
-
-            mAdapter = new vakkenAdapter(YearOneActivity.this, 0, vakModels);
+            mAdapter = new vakkenAdapter(YearThreeFourActivity.this, 0, vakModels);
             mListView.setAdapter(mAdapter);
-
 
         }
 

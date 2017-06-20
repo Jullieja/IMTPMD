@@ -17,29 +17,22 @@
         android:theme="@style/Theme.Design.Light">
         <activity
             android:name=".LoginActivity"
-
-            android:label="@string/app_name" >
-
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            </activity>
+        </activity>
         <activity android:name=".algemeen_info" />
         <activity android:name=".CourseListActivity" />
         <activity android:name=".PickYearActivity" />
         <activity android:name=".EditActivity" />
         <activity android:name=".TestMainActivity" />
-
-
         <activity android:name=".TestSecondActivity" />
-        <activity android:name=".YearOneActivity">
-
-
-        </activity>
-
-
+        <activity android:name=".YearOneActivity" />
+        <activity android:name=".YearTwoActivity" />
+        <activity android:name=".YearThreeFourActivity"></activity>
     </application>
 
 </manifest>
