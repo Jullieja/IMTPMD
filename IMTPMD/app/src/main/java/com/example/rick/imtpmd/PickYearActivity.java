@@ -14,12 +14,12 @@ import java.util.ArrayList;
 public class PickYearActivity extends AppCompatActivity {
     String logged_in_username;
     String user_id;
-<<<<<<< HEAD
+//<<<<<<< HEAD
     String spec;
 
-=======
+//=======
     ArrayList<String> userGegevens;
->>>>>>> dbtestbranch
+//>>>>>>> dbtestbranch
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,19 +28,19 @@ public class PickYearActivity extends AppCompatActivity {
         //Informatie uit de bundle halen
         final Bundle b = getIntent().getExtras();
         if (b != null) {
-<<<<<<< HEAD
-            String username = b.getString("username");
-            logged_in_username = b.getString("username");
-            user_id = b.getString("user_id");
+//<<<<<<< HEAD
+//            String username = b.getString("username");
+//            logged_in_username = b.getString("username");
+//            user_id = b.getString("user_id");
             spec = b.getString("spec");
-=======
+//=======
             userGegevens = b.getStringArrayList("userGegevens");
 
             //String username = b.getString("username");
             logged_in_username = userGegevens.get(1);
 
             user_id = userGegevens.get(0);
->>>>>>> dbtestbranch
+//>>>>>>> dbtestbranch
             //Informatie weergeven dmv toast
             Context context = getApplicationContext();
             CharSequence text = "Je bent succesvol ingelogd als " + userGegevens.get(1);

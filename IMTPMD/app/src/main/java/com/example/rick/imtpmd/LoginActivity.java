@@ -387,12 +387,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     found = true;
                     //Nieuwe bundle aanmaken en username in opslaan
                     Bundle b = new Bundle();
-<<<<<<< HEAD
-                    b.putString("username", username);
-                    b.putString("user_id",id);
+//<<<<<<< HEAD
+//                    b.putString("username", username);
+//                    b.putString("user_id",id);
                     b.putString("spec", spec);
-
-=======
+//
+//=======
                     ArrayList<String> userGegevens = new ArrayList<String>();
                     userGegevens.add(String.valueOf(user.getId()));//id
                     userGegevens.add(user.getName());//naam
@@ -403,7 +403,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     //b.putString("username", username);
                     //b.putString("user_id",id);
                    // static User logged_in_user = new user(user.getId(),user.getName(),user.getPasswd(),user.getSpec())
->>>>>>> dbtestbranch
+//>>>>>>> dbtestbranch
                     intent.putExtras(b);
                     startActivity(intent);
                     finish();
