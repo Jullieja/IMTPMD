@@ -11,16 +11,28 @@ public class Vak {
     private String year;
     private String spec;
     private String grade;
+    private String passed;
     private String user_id;
 
-
-    public Vak(String name, String ects, String year, String spec) {
+    public Vak(String name, String ects, String year, String spec, String[] opt) {
         this.name = name;
         this.ects = ects;
         this.year = year;
         this.spec = spec;
+        if(opt!=null) {
+            this.grade = opt[0];
+            this.grade = opt[1];
+            this.passed = opt[2];
+        }
     }
 
+    public String getPassed() {
+        return passed;
+    }
+
+    public void setPassed(String passed) {
+        this.passed = passed;
+    }
 
     public String getName() {
         return name;

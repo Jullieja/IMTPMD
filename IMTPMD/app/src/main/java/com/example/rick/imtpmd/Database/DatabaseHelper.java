@@ -58,7 +58,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         mySQLDB.update(table, values,  whereClause, whereArgs);
     }
 
-
     public Cursor query(String table, String[] columns, String selection, String[] selectArgs, String groupBy, String having, String orderBy){
         return mySQLDB.query(table, columns, selection, selectArgs, groupBy, having, orderBy);
     }

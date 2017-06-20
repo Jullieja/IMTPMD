@@ -46,7 +46,7 @@ public class EditActivity extends AppCompatActivity {
                 EditText cijfer = (EditText) findViewById(R.id.grade);
                 CheckBox behaald = (CheckBox) findViewById(R.id.passed);
                 //String txtelement = cijfer.getText().toString();
-                Boolean isPassed = behaald.isEnabled();
+                Boolean isPassed = behaald.isChecked();
 
                 Log.e("user_id", b.getStringArrayList("userGegevens").get(0));
                 Log.e("vak", b.getString("vak"));
@@ -65,12 +65,14 @@ public class EditActivity extends AppCompatActivity {
                     values.put(DatabaseInfo.CourseColumn.user_id,b.getStringArrayList("userGegevens").get(0));
                     values.put(DatabaseInfo.CourseColumn.grade,cijfer.getText().toString());
                     values.put(DatabaseInfo.CourseColumn.passed,String.valueOf(isPassed));
-                    dbHelper.update(DatabaseInfo.CourseTables.user, values ,"user_id = '"+b.getStringArrayList("userGegevens").get(0)+"'",null);
+                    //dbHelper.update(DatabaseInfo.CourseTables.user, values ,"user_id = '"+b.getStringArrayList("userGegevens").get(0)+"'",null);
+                    dbHelper.update(DatabaseInfo.CourseTables.user, values ,"user_id = ? AND vak_name = ? ",new String[]{b.getStringArrayList("userGegevens").get(0),b.getString("vak")});
+
                     //rs.moveToFirst();
-                    Log.e("er is wel een rij: ", "update sql query");
+                    Log.e("##", "HIERHIERHIER##HIERHIERHIER##HIERHIERHIER##HIERHIERHIER UPDATE");
 
                 } else {                        // als de database leeg is.
-                    Log.e("er nog geen rij: ", "insert sql query");
+                    Log.e("##", "HIERHIERHIER##HIERHIERHIER##HIERHIERHIER##HIERHIERHIER INSERT");
                     ContentValues values = new ContentValues();
                     values.put(DatabaseInfo.CourseColumn.vak_name,b.getString("vak"));
                     values.put(DatabaseInfo.CourseColumn.user_id,b.getStringArrayList("userGegevens").get(0));

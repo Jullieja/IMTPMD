@@ -29,8 +29,8 @@ public class vakkenAdapter extends ArrayAdapter<Vak> {
             //koppeling van viewholder aan de view
             vh.naam = (TextView) convertView.findViewById(R.id.name);
             vh.ects = (TextView) convertView.findViewById(R.id.ects);
-//            vh.cijfer = (TextView) convertView.findViewById(R.id.grade);
-//            vh.behaald = (CheckBox) convertView.findViewById(R.id.passed);
+            vh.grade = (TextView) convertView.findViewById(R.id.grade);
+            vh.passed = (CheckBox) convertView.findViewById(R.id.passed);
             convertView.setTag(vh);
         } else {
             vh = (ViewHolder) convertView.getTag();
@@ -40,8 +40,8 @@ public class vakkenAdapter extends ArrayAdapter<Vak> {
         Vak vak = getItem(position);
         vh.naam.setText((CharSequence) vak.getName());
         vh.ects.setText((CharSequence) vak.getEcts());
-//        vh.cijfer.setText((CharSequence) vak.getGrade());
-//        vh.behaald.setChecked((boolean) vak.passed);
+        vh.grade.setText((CharSequence) vak.getGrade());
+        vh.passed.setChecked((boolean) Boolean.valueOf(vak.getPassed()));
         return convertView;
     }
 
@@ -53,8 +53,8 @@ public class vakkenAdapter extends ArrayAdapter<Vak> {
 
         TextView naam;
         TextView ects;
-        //TextView cijfer;
-        //CheckBox behaald;
+        TextView grade;
+        CheckBox passed;
         //public int year;
         //public String soort;
         //public String spec;
