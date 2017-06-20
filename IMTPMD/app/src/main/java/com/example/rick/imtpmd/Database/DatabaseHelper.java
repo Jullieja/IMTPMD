@@ -16,7 +16,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static SQLiteDatabase mySQLDB;
     private static DatabaseHelper mInstance;
     public static final String dbName = "user.db";
-    public static final int dbVersion = 1;
+    public static final int dbVersion = 2;
 
     public DatabaseHelper(Context ctx){
         super(ctx, dbName, null, dbVersion);
@@ -54,6 +54,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void insert(String table, String nullColumnHack, ContentValues values){
         mySQLDB.insert(table, nullColumnHack, values);
     }
+    public void update(String table,  ContentValues values, String whereClause ,String[] whereArgs){
+        mySQLDB.update(table, values,  whereClause, whereArgs);
+    }
+
 
     public Cursor query(String table, String[] columns, String selection, String[] selectArgs, String groupBy, String having, String orderBy){
         return mySQLDB.query(table, columns, selection, selectArgs, groupBy, having, orderBy);

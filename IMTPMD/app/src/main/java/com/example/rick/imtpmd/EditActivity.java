@@ -16,19 +16,22 @@ import com.example.rick.imtpmd.Database.DatabaseHelper;
 import com.example.rick.imtpmd.Database.DatabaseInfo;
 import com.example.rick.imtpmd.R;
 
+import java.util.ArrayList;
+
 public class EditActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
-
+        ArrayList<String> userGegevens;
         Button save = (Button) findViewById(R.id.save);
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
+            userGegevens = b.getStringArrayList("userGegevens");
             String vak = b.getString("vak");
-            String user_id = b.getString("user_id");
+            String user_id = userGegevens.get(0);
             //Log.d("editacititytest: "+vak+" ",user_id);
             Toast t = Toast.makeText(EditActivity.this,"Click " + vak+user_id,Toast.LENGTH_SHORT);
             t.show();
@@ -45,22 +48,41 @@ public class EditActivity extends AppCompatActivity {
                 //String txtelement = cijfer.getText().toString();
                 Boolean isPassed = behaald.isEnabled();
 
-                Log.e("user_id", b.getString("user_id"));
+                Log.e("user_id", b.getStringArrayList("userGegevens").get(0));
                 Log.e("vak", b.getString("vak"));
                 Log.e("cijfer", cijfer.getText().toString());
                 Log.e("behaald", String.valueOf(isPassed));
 
                 DatabaseHelper dbHelper = DatabaseHelper.getHelper(EditActivity.this);
-                ContentValues values = new ContentValues();
-                values.put(DatabaseInfo.CourseColumn.vak_name,b.getString("vak"));
-                values.put(DatabaseInfo.CourseColumn.user_id,b.getString("user_id"));
-                values.put(DatabaseInfo.CourseColumn.grade,cijfer.getText().toString());
-                values.put(DatabaseInfo.CourseColumn.passed,String.valueOf(isPassed));
-                dbHelper.insert(DatabaseInfo.CourseTables.user,null,values);
 
-                Cursor rs = dbHelper.query(DatabaseInfo.CourseTables.user,new String[]{"*"},null,null,null,null,null);
+                Cursor rs = dbHelper.query(DatabaseInfo.CourseTables.user,new String[]{"*"/*"vak_name = "+b.getString("vak")*/},"vak_name = '"+b.getString("vak")+"' AND user_id = '"+b.getStringArrayList("userGegevens").get(0)+"'" ,null,null,null,null);
+                int rijenteller = rs.getCount();
+                Log.e("er is aantal rijen: ", String.valueOf(rijenteller));
+
+                if(rs!=null && rs.getCount()>0){ // als de database gevuld is.
+                    ContentValues values = new ContentValues();
+                    values.put(DatabaseInfo.CourseColumn.vak_name,b.getString("vak"));
+                    values.put(DatabaseInfo.CourseColumn.user_id,b.getStringArrayList("userGegevens").get(0));
+                    values.put(DatabaseInfo.CourseColumn.grade,cijfer.getText().toString());
+                    values.put(DatabaseInfo.CourseColumn.passed,String.valueOf(isPassed));
+                    dbHelper.update(DatabaseInfo.CourseTables.user, values ,"user_id = '"+b.getStringArrayList("userGegevens").get(0)+"'",null);
+                    //rs.moveToFirst();
+                    Log.e("er is wel een rij: ", "update sql query");
+
+                } else {                        // als de database leeg is.
+                    Log.e("er nog geen rij: ", "insert sql query");
+                    ContentValues values = new ContentValues();
+                    values.put(DatabaseInfo.CourseColumn.vak_name,b.getString("vak"));
+                    values.put(DatabaseInfo.CourseColumn.user_id,b.getStringArrayList("userGegevens").get(0));
+                    values.put(DatabaseInfo.CourseColumn.grade,cijfer.getText().toString());
+                    values.put(DatabaseInfo.CourseColumn.passed,String.valueOf(isPassed));
+                    dbHelper.insert(DatabaseInfo.CourseTables.user,null,values);
+                }
+                /*
+
                 rs.moveToFirst();
-                Log.e("TESTd ","TEST");
+
+
                 if (rs != null) {
                     do {
                         for (int i = 0; i < rs.getColumnCount(); i++) {
@@ -68,9 +90,18 @@ public class EditActivity extends AppCompatActivity {
                         }
                     }while (rs.moveToNext());
                 }
+                */
+
+
+                /**/
+
+
 
 
                 Intent intent = new Intent(EditActivity.this, YearOneActivity.class);
+                Bundle c = new Bundle();
+                c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                intent.putExtras(c);
                 startActivity(intent);
             }
         });
