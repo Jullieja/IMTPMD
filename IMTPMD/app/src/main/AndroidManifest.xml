@@ -32,7 +32,8 @@
         <activity android:name=".TestSecondActivity" />
         <activity android:name=".YearOneActivity" />
         <activity android:name=".YearTwoActivity" />
-        <activity android:name=".YearThreeFourActivity"></activity>
+        <activity android:name=".YearThreeFourActivity" />
+        <activity android:name=".KeuzeVakActivity"></activity>
     </application>
 
 </manifest>

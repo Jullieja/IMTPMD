@@ -96,6 +96,22 @@ public class PickYearActivity extends AppCompatActivity {
             }
         });
 
+        Button keuzevak = (Button) findViewById(R.id.keuze);
+        keuzevak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Knop keuzevak ingedrukt", "Start KeuzeVakActivity");
+                Intent intent = new Intent(PickYearActivity.this, KeuzeVakActivity.class);
+                Bundle b = new Bundle();
+                b.putString("username", logged_in_username);
+                b.putString("user_id", user_id);
+                b.putString("spec", spec);
+
+                intent.putExtras(b);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
