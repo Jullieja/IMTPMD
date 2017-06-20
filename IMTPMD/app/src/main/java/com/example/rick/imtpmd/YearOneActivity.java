@@ -90,7 +90,6 @@ public class YearOneActivity extends AppCompatActivity {
                 username = userGegevens.get(1);
                 user_id = userGegevens.get(0);
 
->>>>>>> dbtestbranch
                 logginuser.setId(Integer.parseInt(user_id));
             }
 
@@ -113,19 +112,19 @@ public class YearOneActivity extends AppCompatActivity {
                  @Override
                  public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                      Intent intent = new Intent(YearOneActivity.this, EditActivity.class);
-<<<<<<< HEAD
+
                      Bundle b = new Bundle();
                      b.putString("user_id",String.valueOf(logginuser.getId()));
 //                     b.putString("spec", String.valueOf(spec)));
                      b.putString("vak",vakModels.get(position).getName());
                      intent.putExtras(b);
-=======
+
                      Bundle c = new Bundle();
                      c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
                      //b.putString("user_id",String.valueOf(logginuser.getId()));
                      c.putString("vak",vakModels.get(position).getName());
                      intent.putExtras(c);
->>>>>>> dbtestbranch
+
                      startActivity(intent);
 
                      //Toast t = Toast.makeText(YearOneActivity.this,"Click " + vakModels.get(position).getName(),Toast.LENGTH_SHORT);
