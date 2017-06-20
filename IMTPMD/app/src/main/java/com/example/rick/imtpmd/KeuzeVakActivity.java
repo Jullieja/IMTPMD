@@ -8,11 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.rick.imtpmd.Model.User;
 import com.example.rick.imtpmd.Model.Vak;
-import com.example.rick.imtpmd.Model.vakModel;
 import com.example.rick.imtpmd.Model.vakkenAdapter;
 import com.google.gson.Gson;
 
@@ -23,14 +21,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class YearOneActivity extends AppCompatActivity {
+
+public class KeuzeVakActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_year_one);
+        setContentView(R.layout.activity_keuze_vak);
 
-        new VakkenTask().execute();
+
+        new KeuzeVakActivity.VakkenTask().execute();
     }
 
     public class VakkenTask extends AsyncTask<Void, Void, String> {
@@ -41,7 +41,6 @@ public class YearOneActivity extends AppCompatActivity {
 
 
         VakkenTask() {
-
 
         }
 
@@ -70,23 +69,16 @@ public class YearOneActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(final String response) {
-            String username="";
-            String user_id="";
+            String username = "";
+            String user_id = "";
             String spec = "";
-            ArrayList<String> userGegevens;
-
             final User logginuser = new User(99,"test","test","test" );
 
-            final Bundle b = getIntent().getExtras();
+            Bundle b = getIntent().getExtras();
             if (b != null) {
-
+                username = b.getString("username");
+                user_id = b.getString("user_id");
                 spec = b.getString("spec");
-
-                userGegevens = b.getStringArrayList("userGegevens");
-                username = userGegevens.get(1);
-                user_id = userGegevens.get(0);
-
-
                 logginuser.setId(Integer.parseInt(user_id));
             }
 
@@ -96,48 +88,50 @@ public class YearOneActivity extends AppCompatActivity {
 
             Vak[] vakken = gson.fromJson(response, Vak[].class);
             for (Vak vak : vakken) {
-                //vak.setUser_id(b.getString("user_id"));
-                vak.setGrade("10");
-                if(vak.getYear().equals("1")){
+                if (vak.getYear().equals("234")){
                     vakModels.add(vak);
                 }
+
+                // vak.setSpec(b.getString("spec"));
+                //vak.setGrade("10");
+//                if(vak.getYear().equals("2") & vak.getSpec().equals("fict")){
+//                        vakModels.add(vak);
+//                }
+
+//                if(vak.getSpec() == "medt"){
+//                    if(vak.getYear().equals("2")){
+//                        vakModels.add(vak);
+//                    }
+//                }
+
 
             }
 
             mListView = (ListView) findViewById(R.id.my_list_view);
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                 @Override
-                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                     Intent intent = new Intent(YearOneActivity.this, EditActivity.class);
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    Intent intent = new Intent(KeuzeVakActivity.this, EditActivity.class);
+                    Bundle b = new Bundle();
+                    b.putString("user_id",String.valueOf(logginuser.getId()));
+                    b.putString("spec", String.valueOf(logginuser.getSpec()));
+                    b.putString("vak",vakModels.get(position).getName());
+                    intent.putExtras(b);
+                    startActivity(intent);
 
-//                     Bundle b = new Bundle();
-//                     b.putString("user_id",String.valueOf(logginuser.getId()));
-////                     b.putString("spec", String.valueOf(spec)));
-//                     b.putString("vak",vakModels.get(position).getName());
-//                     intent.putExtras(b);
-
-                     Bundle c = new Bundle();
-                     c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
-                     //b.putString("user_id",String.valueOf(logginuser.getId()));
-                     c.putString("vak",vakModels.get(position).getName());
-                     intent.putExtras(c);
-
-                     startActivity(intent);
-
-                     //Toast t = Toast.makeText(YearOneActivity.this,"Click " + vakModels.get(position).getName(),Toast.LENGTH_SHORT);
-                     //t.show();
-                 }
-             }
-            );
+                    //Toast t = Toast.makeText(YearOneActivity.this,"Click " + vakModels.get(position).getName(),Toast.LENGTH_SHORT);
+                    //t.show();
+                }});
             //boolean found = false;
 
-
-            mAdapter = new vakkenAdapter(YearOneActivity.this, 0, vakModels);
+            mAdapter = new vakkenAdapter(KeuzeVakActivity.this, 0, vakModels);
             mListView.setAdapter(mAdapter);
-
 
         }
 
     }
 
 }
+
+
+

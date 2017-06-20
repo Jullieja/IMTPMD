@@ -4,7 +4,7 @@ package com.example.rick.imtpmd.Model;
  * Created by juliarijsbergen on 19-06-17.
  */
 
-public class Vak {
+public class  Vak {
 
     private String name;
     private String ects;
