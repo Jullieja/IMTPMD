@@ -72,12 +72,15 @@ public class YearOneActivity extends AppCompatActivity {
         protected void onPostExecute(final String response) {
             String username="";
             String user_id="";
+            ArrayList<String> userGegevens;
             final User logginuser = new User(99,"test","test","test" );
 
-            Bundle b = getIntent().getExtras();
+            final Bundle b = getIntent().getExtras();
             if (b != null) {
-                username = b.getString("username");
-                user_id = b.getString("user_id");
+                userGegevens = b.getStringArrayList("userGegevens");
+                username = userGegevens.get(1);
+                user_id = userGegevens.get(0);
+
                 logginuser.setId(Integer.parseInt(user_id));
             }
 
@@ -100,10 +103,11 @@ public class YearOneActivity extends AppCompatActivity {
                  @Override
                  public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                      Intent intent = new Intent(YearOneActivity.this, EditActivity.class);
-                     Bundle b = new Bundle();
-                     b.putString("user_id",String.valueOf(logginuser.getId()));
-                     b.putString("vak",vakModels.get(position).getName());
-                     intent.putExtras(b);
+                     Bundle c = new Bundle();
+                     c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                     //b.putString("user_id",String.valueOf(logginuser.getId()));
+                     c.putString("vak",vakModels.get(position).getName());
+                     intent.putExtras(c);
                      startActivity(intent);
 
                      //Toast t = Toast.makeText(YearOneActivity.this,"Click " + vakModels.get(position).getName(),Toast.LENGTH_SHORT);

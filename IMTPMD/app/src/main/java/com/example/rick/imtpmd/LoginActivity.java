@@ -386,9 +386,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     found = true;
                     //Nieuwe bundle aanmaken en username in opslaan
                     Bundle b = new Bundle();
-                    b.putString("username", username);
-                    b.putString("user_id",id);
-
+                    ArrayList<String> userGegevens = new ArrayList<String>();
+                    userGegevens.add(String.valueOf(user.getId()));//id
+                    userGegevens.add(user.getName());//naam
+                    userGegevens.add(user.getPasswd());//passw
+                    userGegevens.add(user.getSpec());//spec
+                    //,user.getName(),user.getPasswd(),user.getSpec()}
+                    b.putStringArrayList("userGegevens",userGegevens);
+                    //b.putString("username", username);
+                    //b.putString("user_id",id);
+                   // static User logged_in_user = new user(user.getId(),user.getName(),user.getPasswd(),user.getSpec())
                     intent.putExtras(b);
                     startActivity(intent);
                     finish();

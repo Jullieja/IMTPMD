@@ -9,24 +9,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class PickYearActivity extends AppCompatActivity {
     String logged_in_username;
     String user_id;
-
+    ArrayList<String> userGegevens;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_year);
 
         //Informatie uit de bundle halen
-        Bundle b = getIntent().getExtras();
+        final Bundle b = getIntent().getExtras();
         if (b != null) {
-            String username = b.getString("username");
-            logged_in_username = b.getString("username");
-            user_id = b.getString("user_id");
+            userGegevens = b.getStringArrayList("userGegevens");
+
+            //String username = b.getString("username");
+            logged_in_username = userGegevens.get(1);
+
+            user_id = userGegevens.get(0);
             //Informatie weergeven dmv toast
             Context context = getApplicationContext();
-            CharSequence text = "Je bent succesvol ingelogd als " + username;
+            CharSequence text = "Je bent succesvol ingelogd als " + userGegevens.get(1);
             int duration = Toast.LENGTH_SHORT;
 
             Toast toast = Toast.makeText(context, text, duration);
@@ -39,11 +44,11 @@ public class PickYearActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("Knop year 1 ingedrukt", "Start YearOneActivity");
                 Intent intent = new Intent(PickYearActivity.this, YearOneActivity.class);
-                Bundle b = new Bundle();
-                b.putString("username", logged_in_username);
-                b.putString("user_id",user_id);
+                Bundle c = new Bundle();
+                c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                //b.putString("user_id",user_id);
 
-                intent.putExtras(b);
+                intent.putExtras(c);
                 startActivity(intent);
             }
         });
