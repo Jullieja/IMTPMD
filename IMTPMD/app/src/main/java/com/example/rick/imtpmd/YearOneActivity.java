@@ -81,11 +81,7 @@ public class YearOneActivity extends AppCompatActivity {
 
             final Bundle b = getIntent().getExtras();
             if (b != null) {
-<<<<<<< HEAD
-              user_id = b.getString("user_id");
-=======
 
->>>>>>> 340c44be58d6cc18329e17b646fede2ff4f1f263
                 spec = b.getString("spec");
 
                 userGegevens = b.getStringArrayList("userGegevens");
@@ -152,24 +148,12 @@ public class YearOneActivity extends AppCompatActivity {
                  public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                      Intent intent = new Intent(YearOneActivity.this, EditActivity.class);
 
-<<<<<<< HEAD
-=======
-//                     Bundle b = new Bundle();
-//                     b.putString("user_id",String.valueOf(logginuser.getId()));
-////                     b.putString("spec", String.valueOf(spec)));
-//                     b.putString("vak",vakModels.get(position).getName());
-//                     intent.putExtras(b);
-
->>>>>>> 340c44be58d6cc18329e17b646fede2ff4f1f263
                      Bundle c = new Bundle();
                      c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
                      //b.putString("user_id",String.valueOf(logginuser.getId()));
                      c.putString("vak",vakModels.get(position).getName());
                      intent.putExtras(c);
-<<<<<<< HEAD
-=======
 
->>>>>>> 340c44be58d6cc18329e17b646fede2ff4f1f263
                      startActivity(intent);
 
                  }

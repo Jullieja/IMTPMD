@@ -388,8 +388,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     //Nieuwe bundle aanmaken en username in opslaan
                     Bundle b = new Bundle();
 //<<<<<<< HEAD
-//                    b.putString("username", username);
-//                    b.putString("user_id",id);
                     b.putString("spec", spec);
 //
 //=======
