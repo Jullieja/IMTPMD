@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.rick.imtpmd.Database.DatabaseHelper;
 import com.example.rick.imtpmd.Database.DatabaseInfo;
@@ -143,6 +144,7 @@ public class YearThreeFourActivity extends AppCompatActivity {
 
             Gson gson = new Gson();
             Vak[] vakken = gson.fromJson(response, Vak[].class);
+            int puntenteller = 0;
             for (Vak vak : vakken) {
                 if(vak.getYear().equals("34")){
                     for(Vak vak_add : vakkenlijst){
@@ -153,10 +155,22 @@ public class YearThreeFourActivity extends AppCompatActivity {
                             vak.setPassed(vak_add.getPassed());
                         }
                     }
+                    if(vak.getPassed() != null) {
+                        if (vak.getPassed().equals("true")) {
+                            Log.e(vak.getPassed(), vak.getEcts() + " Behaald met ects");
+                            int punt = Integer.valueOf(vak.getEcts());
+                            Log.e(String.valueOf(punt), "ect");
+                            puntenteller += punt;
+                            Log.e(String.valueOf(puntenteller), "totaal");
+                        }
+                    }
                     vakModels.add(vak);
                 }
 
             }
+
+            TextView totaalpunten = (TextView) findViewById(R.id.aantal_p);
+            totaalpunten.setText(String.valueOf(puntenteller));
 
             mListView = (ListView) findViewById(R.id.my_list_view);
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

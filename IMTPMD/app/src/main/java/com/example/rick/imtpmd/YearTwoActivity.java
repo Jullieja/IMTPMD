@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.rick.imtpmd.Database.DatabaseHelper;
 import com.example.rick.imtpmd.Database.DatabaseInfo;
@@ -77,7 +78,7 @@ public class YearTwoActivity extends AppCompatActivity {
             String spec = "";
             ArrayList<String> userGegevens;
 
-            final User logginuser = new User(99,"test","test","test" );
+            final User logginuser = new User(99, "test", "test", "test");
 
             final Bundle b = getIntent().getExtras();
             if (b != null) {
@@ -89,98 +90,110 @@ public class YearTwoActivity extends AppCompatActivity {
             }
 
 
-
-
             Log.i("INFO", " : " + username + " " + user_id + " " + spec);
 
             DatabaseHelper dbHelper = DatabaseHelper.getHelper(YearTwoActivity.this);
-            Cursor rs = dbHelper.query(DatabaseInfo.CourseTables.user,new String[]{"*"/*"vak_name = "+b.getString("vak")*/},"user_id = '"+b.getStringArrayList("userGegevens").get(0)+"'" ,null,null,null,null);
+            Cursor rs = dbHelper.query(DatabaseInfo.CourseTables.user, new String[]{"*"/*"vak_name = "+b.getString("vak")*/}, "user_id = '" + b.getStringArrayList("userGegevens").get(0) + "'", null, null, null, null);
             int rijenteller = rs.getCount();
 
-            int j=0;
+            int j = 0;
             if (rs != null && rs.moveToFirst()) {
                 do {
                     //Log.e("RIJ: " , j+ " #########################################");
-                    j+=1;
-                    Vak vak = new Vak("","","","",null);
+                    j += 1;
+                    Vak vak = new Vak("", "", "", "", null);
                     for (int i = 0; i < rs.getColumnCount(); i++) {
                         //Log.e("veld "+i+" :", "" + rs.getString(i));
-                        if(i == 1){//naam
+                        if (i == 1) {//naam
                             vak.setName(rs.getString(i));
                         }
-                        if(i == 2){//id
+                        if (i == 2) {//id
                             vak.setUser_id(rs.getString(i));
                         }
-                        if(i == 3){//grade
+                        if (i == 3) {//grade
                             vak.setGrade(rs.getString(i));
                         }
-                        if(i == 4){//passed
+                        if (i == 4) {//passed
                             vak.setPassed(rs.getString(i));
                         }
                     }
                     vakkenlijst.add(vak);
-                }while (rs.moveToNext());
+                } while (rs.moveToNext());
             }
 
             Gson gson = new Gson();
             Vak[] vakken = gson.fromJson(response, Vak[].class);
+            int puntenteller = 0;
             for (Vak vak : vakken) {
-                if (vak.getSpec().equals(spec)){
-                    for (Vak vak_add : vakkenlijst){
-                        if (vak.getName().equals(vak_add.getName())){
+                if (vak.getSpec().equals(spec)) {
+                    for (Vak vak_add : vakkenlijst) {
+                        if (vak.getName().equals(vak_add.getName())) {
                             vak.setUser_id(vak_add.getUser_id());
                             vak.setGrade(vak_add.getGrade());
                             vak.setPassed(vak_add.getPassed());
+                        }
+                    }
+                    if(vak.getPassed() != null) {
+                        if (vak.getPassed().equals("true")) {
+                            Log.e(vak.getPassed(), vak.getEcts() + " Behaald met ects");
+                            int punt = Integer.valueOf(vak.getEcts());
+                            Log.e(String.valueOf(punt), "ect");
+                            puntenteller += punt;
+                            Log.e(String.valueOf(puntenteller), "totaal");
                         }
                     }
                     vakModels.add(vak);
                 }
             }
 
-            mListView = (ListView) findViewById(R.id.my_list_view);
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    Intent intent = new Intent(YearTwoActivity.this, EditActivity.class);
-                    Bundle c = new Bundle();
-                    c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
-                    c.putString("vak", vakModels.get(position).getName());
-                    //Log.e("#############",b.getString("spec"));
-                    c.putString("jaar",b.getString("jaar"));
-                    c.putString("spec",b.getString("spec"));
-                    c.putString("cijfer",vakModels.get(position).getGrade());
-                    intent.putExtras(c);
-                    startActivity(intent);
 
-                }
-            });
+                TextView totaalpunten = (TextView) findViewById(R.id.aantal_p);
+                totaalpunten.setText(String.valueOf(puntenteller));
 
-            mAdapter = new vakkenAdapter(YearTwoActivity.this, 0, vakModels);
-            mListView.setAdapter(mAdapter);
+                mListView = (ListView) findViewById(R.id.my_list_view);
+                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                        Intent intent = new Intent(YearTwoActivity.this, EditActivity.class);
+                        Bundle c = new Bundle();
+                        c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                        c.putString("vak", vakModels.get(position).getName());
+                        //Log.e("#############",b.getString("spec"));
+                        c.putString("jaar", b.getString("jaar"));
+                        c.putString("spec", b.getString("spec"));
+                        c.putString("cijfer", vakModels.get(position).getGrade());
+                        intent.putExtras(c);
+                        startActivity(intent);
+
+                    }
+                });
+
+                mAdapter = new vakkenAdapter(YearTwoActivity.this, 0, vakModels);
+                mListView.setAdapter(mAdapter);
 
             /*ACTIONBARCREATE*/
 
-            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-            getSupportActionBar().setDisplayShowCustomEnabled(true);
-            getSupportActionBar().setCustomView(R.layout.custom_actionbar);
-            View view = getSupportActionBar().getCustomView();
-            ImageButton imageButton= (ImageButton)view.findViewById(R.id.go_b_button);
-            imageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(), PickYearActivity.class);
-                    Bundle c = new Bundle();
-                    c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
-                    intent.putExtras(c);
-                    startActivity(intent);
-                }
-            });
+                getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+                getSupportActionBar().setDisplayShowCustomEnabled(true);
+                getSupportActionBar().setCustomView(R.layout.custom_actionbar);
+                View view = getSupportActionBar().getCustomView();
+                ImageButton imageButton = (ImageButton) view.findViewById(R.id.go_b_button);
+                imageButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), PickYearActivity.class);
+                        Bundle c = new Bundle();
+                        c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                        intent.putExtras(c);
+                        startActivity(intent);
+                    }
+                });
 
         /*//ACTIONBARCREATE*/
 
-        }
+            }
 
+        }
     }
 
-}
 
