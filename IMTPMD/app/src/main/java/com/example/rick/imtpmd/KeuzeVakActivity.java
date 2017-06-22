@@ -141,21 +141,11 @@ public class KeuzeVakActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Intent intent = new Intent(KeuzeVakActivity.this, EditActivity.class);
-<<<<<<< HEAD
-                    Bundle b = new Bundle();
-                    b.putString("user_id",String.valueOf(logginuser.getId()));
-                    b.putString("spec", String.valueOf(logginuser.getSpec()));
-                    b.putString("vak",vakModels.get(position).getName());
-
-                    intent.putExtras(b);
-                    startActivity(intent);
-=======
->>>>>>> year_two_edit
-
                     Bundle c = new Bundle();
                     c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
                     //b.putString("user_id",String.valueOf(logginuser.getId()));
                     c.putString("vak",vakModels.get(position).getName());
+                    c.putString("jaar","keuzevak");
                     intent.putExtras(c);
 
                     startActivity(intent);

@@ -144,6 +144,7 @@ public class YearThreeFourActivity extends AppCompatActivity {
                     Bundle c = new Bundle();
                     c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
                     //b.putString("user_id",String.valueOf(logginuser.getId()));
+                    c.putString("jaar","34");
                     c.putString("vak",vakModels.get(position).getName());
                     intent.putExtras(c);
 

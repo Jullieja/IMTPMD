@@ -122,6 +122,9 @@ public class EditActivity extends AppCompatActivity {
                     case "34":
                         intent = new Intent(EditActivity.this, YearThreeFourActivity.class);
                         break;
+                    case "keuzevak":
+                        intent = new Intent(EditActivity.this, KeuzeVakActivity.class);
+                        break;
                 }
 
 

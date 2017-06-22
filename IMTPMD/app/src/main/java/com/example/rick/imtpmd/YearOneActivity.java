@@ -94,20 +94,10 @@ public class YearOneActivity extends AppCompatActivity {
 
             DatabaseHelper dbHelper = DatabaseHelper.getHelper(YearOneActivity.this);
             Cursor rs = dbHelper.query(DatabaseInfo.CourseTables.user,new String[]{"*"/*"vak_name = "+b.getString("vak")*/},"user_id = '"+b.getStringArrayList("userGegevens").get(0)+"'" ,null,null,null,null);
-<<<<<<< HEAD
-            //int rijenteller = rs.getCount();
-
-
 
             int j=0;
             if (rs != null && rs.moveToFirst()) {
-                ;
-=======
-            int rijenteller = rs.getCount();
 
-            int j=0;
-            if (rs != null && rs.moveToFirst()) {
->>>>>>> year_two_edit
                 do {
                     //Log.e("RIJ: " , j+ " #########################################");
                     j+=1;
