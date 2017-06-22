@@ -92,6 +92,7 @@ public class EditActivity extends AppCompatActivity {
                     //values.put(DatabaseInfo.CourseColumn.passed,String.valueOf(isPassed));
                     dbHelper.insert(DatabaseInfo.CourseTables.user,null,values);
                 }
+<<<<<<< HEAD
                 /*
 
                 rs.moveToFirst();
@@ -123,6 +124,10 @@ public class EditActivity extends AppCompatActivity {
                         break;
                 }
 
+=======
+
+                Intent intent = new Intent(EditActivity.this, YearOneActivity.class);
+>>>>>>> year_two_edit
                 Bundle c = new Bundle();
                 c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
                 intent.putExtras(c);
