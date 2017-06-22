@@ -71,12 +71,11 @@ public class PickYearActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("Knop year 2 ingedrukt", "Start YearTwoActivity");
                 Intent intent = new Intent(PickYearActivity.this, YearTwoActivity.class);
-                Bundle b = new Bundle();
-                b.putString("username", logged_in_username);
-                b.putString("user_id", user_id);
-                b.putString("spec", spec);
+                Bundle c = new Bundle();
+                c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                c.putString("spec", spec);
 
-                intent.putExtras(b);
+                intent.putExtras(c);
                 startActivity(intent);
             }
         });
@@ -87,11 +86,10 @@ public class PickYearActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("Knop year 34 ingedrukt", "Start YearThreeFourActivity");
                 Intent intent = new Intent(PickYearActivity.this, YearThreeFourActivity.class);
-                Bundle b = new Bundle();
-                b.putString("username", logged_in_username);
-                b.putString("user_id", user_id);
+                Bundle c = new Bundle();
+                c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
 
-                intent.putExtras(b);
+                intent.putExtras(c);
                 startActivity(intent);
             }
         });
@@ -102,12 +100,10 @@ public class PickYearActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("Knop keuzevak ingedrukt", "Start KeuzeVakActivity");
                 Intent intent = new Intent(PickYearActivity.this, KeuzeVakActivity.class);
-                Bundle b = new Bundle();
-                b.putString("username", logged_in_username);
-                b.putString("user_id", user_id);
-                b.putString("spec", spec);
+                Bundle c = new Bundle();
+                c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
 
-                intent.putExtras(b);
+                intent.putExtras(c);
                 startActivity(intent);
             }
         });

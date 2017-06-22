@@ -1,6 +1,7 @@
 package com.example.rick.imtpmd;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.rick.imtpmd.Database.DatabaseHelper;
+import com.example.rick.imtpmd.Database.DatabaseInfo;
 import com.example.rick.imtpmd.Model.User;
 import com.example.rick.imtpmd.Model.Vak;
 import com.example.rick.imtpmd.Model.vakkenAdapter;
@@ -28,9 +31,7 @@ public class KeuzeVakActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_keuze_vak);
-
-
-        new KeuzeVakActivity.VakkenTask().execute();
+        new VakkenTask().execute();
     }
 
     public class VakkenTask extends AsyncTask<Void, Void, String> {
@@ -38,6 +39,7 @@ public class KeuzeVakActivity extends AppCompatActivity {
         private ListView mListView;
         private vakkenAdapter mAdapter;
         private List<Vak> vakModels = new ArrayList<>();
+        private List<Vak> vakkenlijst = new ArrayList<>();
 
 
         VakkenTask() {
@@ -72,38 +74,65 @@ public class KeuzeVakActivity extends AppCompatActivity {
             String username = "";
             String user_id = "";
             String spec = "";
+            ArrayList<String> userGegevens;
+
             final User logginuser = new User(99,"test","test","test" );
 
-            Bundle b = getIntent().getExtras();
+            final Bundle b = getIntent().getExtras();
             if (b != null) {
-                username = b.getString("username");
-                user_id = b.getString("user_id");
-                spec = b.getString("spec");
+
+                userGegevens = b.getStringArrayList("userGegevens");
+                username = userGegevens.get(1);
+                user_id = userGegevens.get(0);
+
                 logginuser.setId(Integer.parseInt(user_id));
             }
 
             Log.i("INFO", " : " + username + " " + user_id + " " + spec);
+
+            DatabaseHelper dbHelper = DatabaseHelper.getHelper(KeuzeVakActivity.this);
+            Cursor rs = dbHelper.query(DatabaseInfo.CourseTables.user,new String[]{"*"/*"vak_name = "+b.getString("vak")*/},"user_id = '"+b.getStringArrayList("userGegevens").get(0)+"'" ,null,null,null,null);
+            int rijenteller = rs.getCount();
+
+            int j=0;
+            if (rs != null && rs.moveToFirst()) {
+                do {
+                    //Log.e("RIJ: " , j+ " #########################################");
+                    j+=1;
+                    Vak vak = new Vak("","","","",null);
+                    for (int i = 0; i < rs.getColumnCount(); i++) {
+                        //Log.e("veld "+i+" :", "" + rs.getString(i));
+                        if(i == 1){//naam
+                            vak.setName(rs.getString(i));
+                        }
+                        if(i == 2){//id
+                            vak.setUser_id(rs.getString(i));
+                        }
+                        if(i == 3){//grade
+                            vak.setGrade(rs.getString(i));
+                        }
+                        if(i == 4){//passed
+                            vak.setPassed(rs.getString(i));
+                        }
+                    }
+                    vakkenlijst.add(vak);
+                }while (rs.moveToNext());
+            }
+
             Gson gson = new Gson();
-
-
             Vak[] vakken = gson.fromJson(response, Vak[].class);
             for (Vak vak : vakken) {
                 if (vak.getYear().equals("234")){
+                    for(Vak vak_add : vakkenlijst){
+                        if(vak.getName().equals(vak_add.getName())){
+                            //Log.e("MATCH FOUND: ",vak.getName()+vak_add.getName());
+                            vak.setUser_id(vak_add.getUser_id());
+                            vak.setGrade(vak_add.getGrade());
+                            vak.setPassed(vak_add.getPassed());
+                        }
+                    }
                     vakModels.add(vak);
                 }
-
-                // vak.setSpec(b.getString("spec"));
-                //vak.setGrade("10");
-//                if(vak.getYear().equals("2") & vak.getSpec().equals("fict")){
-//                        vakModels.add(vak);
-//                }
-
-//                if(vak.getSpec() == "medt"){
-//                    if(vak.getYear().equals("2")){
-//                        vakModels.add(vak);
-//                    }
-//                }
-
 
             }
 
@@ -112,17 +141,16 @@ public class KeuzeVakActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     Intent intent = new Intent(KeuzeVakActivity.this, EditActivity.class);
-                    Bundle b = new Bundle();
-                    b.putString("user_id",String.valueOf(logginuser.getId()));
-                    b.putString("spec", String.valueOf(logginuser.getSpec()));
-                    b.putString("vak",vakModels.get(position).getName());
-                    intent.putExtras(b);
-                    startActivity(intent);
 
-                    //Toast t = Toast.makeText(YearOneActivity.this,"Click " + vakModels.get(position).getName(),Toast.LENGTH_SHORT);
-                    //t.show();
-                }});
-            //boolean found = false;
+                    Bundle c = new Bundle();
+                    c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                    //b.putString("user_id",String.valueOf(logginuser.getId()));
+                    c.putString("vak",vakModels.get(position).getName());
+                    intent.putExtras(c);
+
+                    startActivity(intent);
+                }
+            });
 
             mAdapter = new vakkenAdapter(KeuzeVakActivity.this, 0, vakModels);
             mListView.setAdapter(mAdapter);
@@ -132,6 +160,3 @@ public class KeuzeVakActivity extends AppCompatActivity {
     }
 
 }
-
-
-
