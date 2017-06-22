@@ -6,12 +6,62 @@
     android:layout_height="match_parent"
     tools:context="com.example.rick.imtpmd.YearThreeFourActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="33dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/course"
+            android:layout_width="63dp"
+            android:layout_height="33dp"
+            android:layout_weight="0.50"
+            android:text="VAK:"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:id="@+id/ects"
+            android:layout_width="63dp"
+            android:layout_height="33dp"
+            android:layout_weight="0.21"
+            android:text="ECT:"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:id="@+id/passed"
+            android:layout_width="63dp"
+            android:layout_height="33dp"
+            android:layout_weight="0.34"
+            android:text="BEHAALD:"
+            android:textAlignment="textStart" />
+
+        <TextView
+            android:id="@+id/grade"
+            android:layout_width="63dp"
+            android:layout_height="33dp"
+            android:layout_weight="0.38"
+            android:text="CIJFER:"
+            android:textAlignment="textStart" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/my_list_view"
-        android:layout_width="wrap_content"
-        android:layout_height="495dp"
+        android:layout_width="0dp"
+        android:layout_height="462dp"
         android:layout_weight="0.84"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 </android.support.constraint.ConstraintLayout>

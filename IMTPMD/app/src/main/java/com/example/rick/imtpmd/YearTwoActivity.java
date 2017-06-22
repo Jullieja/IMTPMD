@@ -3,11 +3,13 @@ package com.example.rick.imtpmd;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.rick.imtpmd.Database.DatabaseHelper;
@@ -79,15 +81,15 @@ public class YearTwoActivity extends AppCompatActivity {
 
             final Bundle b = getIntent().getExtras();
             if (b != null) {
-
                 spec = b.getString("spec");
-
                 userGegevens = b.getStringArrayList("userGegevens");
                 username = userGegevens.get(1);
                 user_id = userGegevens.get(0);
-
                 logginuser.setId(Integer.parseInt(user_id));
             }
+
+
+
 
             Log.i("INFO", " : " + username + " " + user_id + " " + spec);
 
@@ -143,6 +145,10 @@ public class YearTwoActivity extends AppCompatActivity {
                     Bundle c = new Bundle();
                     c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
                     c.putString("vak", vakModels.get(position).getName());
+                    //Log.e("#############",b.getString("spec"));
+                    c.putString("jaar",b.getString("jaar"));
+                    c.putString("spec",b.getString("spec"));
+                    c.putString("cijfer",vakModels.get(position).getGrade());
                     intent.putExtras(c);
                     startActivity(intent);
 
@@ -151,6 +157,26 @@ public class YearTwoActivity extends AppCompatActivity {
 
             mAdapter = new vakkenAdapter(YearTwoActivity.this, 0, vakModels);
             mListView.setAdapter(mAdapter);
+
+            /*ACTIONBARCREATE*/
+
+            getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+            getSupportActionBar().setDisplayShowCustomEnabled(true);
+            getSupportActionBar().setCustomView(R.layout.custom_actionbar);
+            View view = getSupportActionBar().getCustomView();
+            ImageButton imageButton= (ImageButton)view.findViewById(R.id.go_b_button);
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), PickYearActivity.class);
+                    Bundle c = new Bundle();
+                    c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                    intent.putExtras(c);
+                    startActivity(intent);
+                }
+            });
+
+        /*//ACTIONBARCREATE*/
 
         }
 

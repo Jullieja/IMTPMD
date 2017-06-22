@@ -24,12 +24,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".algemeen_info" />
         <activity android:name=".CourseListActivity" />
         <activity android:name=".PickYearActivity" />
         <activity android:name=".EditActivity" />
-        <activity android:name=".TestMainActivity" />
-        <activity android:name=".TestSecondActivity" />
+
         <activity android:name=".YearOneActivity" />
         <activity android:name=".YearTwoActivity" />
         <activity android:name=".YearThreeFourActivity" />

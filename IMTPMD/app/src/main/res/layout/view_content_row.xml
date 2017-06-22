@@ -10,25 +10,25 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="110dp"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.17"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="20dp"
         android:text="VAK"
-        android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_weight="0.31" />
 
     <TextView
         android:id="@+id/ects"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.41"
+        android:layout_weight="0.21"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="20dp"
         android:text="ECT"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <CheckBox
@@ -45,7 +45,6 @@
         android:id="@+id/grade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.37"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="20dp"

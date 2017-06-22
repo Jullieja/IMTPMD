@@ -3,6 +3,7 @@ package com.example.rick.imtpmd;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +32,7 @@ public class EditActivity extends AppCompatActivity {
         TextView vaknaam = (TextView) findViewById(R.id.vaknaam);
         final EditText cijfer = (EditText) findViewById(R.id.grade);
 
-        Bundle b = getIntent().getExtras();
+        final Bundle b = getIntent().getExtras();
         if (b != null) {
             userGegevens = b.getStringArrayList("userGegevens");
             String vak = b.getString("vak");
@@ -39,6 +41,28 @@ public class EditActivity extends AppCompatActivity {
             Toast t = Toast.makeText(EditActivity.this,"Click " + vak+user_id,Toast.LENGTH_SHORT);
             t.show();
         }
+
+
+        /*ACTIONBARCREATE*/
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_actionbar);
+        View view =getSupportActionBar().getCustomView();
+        ImageButton imageButton= (ImageButton)view.findViewById(R.id.go_b_button);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PickYearActivity.class);
+                Bundle c = new Bundle();
+                c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                intent.putExtras(c);
+                startActivity(intent);
+            }
+        });
+
+        /*//ACTIONBARCREATE*/
+
         vaknaam.setText(b.getString("vak"));
         cijfer.setText(b.getString("cijfer"));
         save.setOnClickListener(new View.OnClickListener() {
@@ -65,18 +89,18 @@ public class EditActivity extends AppCompatActivity {
                     ContentValues values = new ContentValues();
                     values.put(DatabaseInfo.CourseColumn.vak_name,b.getString("vak"));
                     values.put(DatabaseInfo.CourseColumn.user_id,b.getStringArrayList("userGegevens").get(0));
-                    String cijfer_str_toint = cijfer.getText().toString();
-
-                    float cijfer_int = Float.parseFloat(cijfer_str_toint);
-                    if((cijfer_int <= 10)) {
-                        values.put(DatabaseInfo.CourseColumn.grade, cijfer.getText().toString());
-                        if (cijfer_int >= 5.5) {
-                            values.put(DatabaseInfo.CourseColumn.passed, String.valueOf(true));
-                        } else {
-                            values.put(DatabaseInfo.CourseColumn.passed, String.valueOf(false));
+                    if(!(cijfer.getText().toString().equals(""))) {
+                        String cijfer_str_toint = cijfer.getText().toString();
+                        float cijfer_int = Float.parseFloat(cijfer_str_toint);
+                        if ((cijfer_int <= 10)) {
+                            values.put(DatabaseInfo.CourseColumn.grade, cijfer.getText().toString());
+                            if (cijfer_int >= 5.5) {
+                                values.put(DatabaseInfo.CourseColumn.passed, String.valueOf(true));
+                            } else {
+                                values.put(DatabaseInfo.CourseColumn.passed, String.valueOf(false));
+                            }
                         }
                     }
-
                     //dbHelper.update(DatabaseInfo.CourseTables.user, values ,"user_id = '"+b.getStringArrayList("userGegevens").get(0)+"'",null);
                     dbHelper.update(DatabaseInfo.CourseTables.user, values ,"user_id = ? AND vak_name = ? ",new String[]{b.getStringArrayList("userGegevens").get(0),b.getString("vak")});
 
@@ -88,7 +112,20 @@ public class EditActivity extends AppCompatActivity {
                     ContentValues values = new ContentValues();
                     values.put(DatabaseInfo.CourseColumn.vak_name,b.getString("vak"));
                     values.put(DatabaseInfo.CourseColumn.user_id,b.getStringArrayList("userGegevens").get(0));
-                    values.put(DatabaseInfo.CourseColumn.grade,cijfer.getText().toString());
+                    if(!(cijfer.getText().toString().equals(""))) {
+                        String cijfer_str_toint = cijfer.getText().toString();
+                        float cijfer_int = Float.parseFloat(cijfer_str_toint);
+                        if ((cijfer_int <= 10)) {
+                            values.put(DatabaseInfo.CourseColumn.grade, cijfer.getText().toString());
+                            if (cijfer_int >= 5.5) {
+                                values.put(DatabaseInfo.CourseColumn.passed, String.valueOf(true));
+                            } else {
+                                values.put(DatabaseInfo.CourseColumn.passed, String.valueOf(false));
+                            }
+                        }
+                    }
+
+                    //values.put(DatabaseInfo.CourseColumn.grade,cijfer.getText().toString());
                     //values.put(DatabaseInfo.CourseColumn.passed,String.valueOf(isPassed));
                     dbHelper.insert(DatabaseInfo.CourseTables.user,null,values);
                 }
@@ -130,11 +167,18 @@ public class EditActivity extends AppCompatActivity {
 
                 Bundle c = new Bundle();
                 c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                c.putString("jaar",b.getString("jaar"));
+                //Log.e("######################",b.getString("spec"));
+                if(b.getString("spec")!=null){
+                    c.putString("spec",b.getString("spec"));
+                    Log.e("######################",b.getString("spec"));
+                }
                 intent.putExtras(c);
                 startActivity(intent);
 
             }
         });
     }
+
 
 }

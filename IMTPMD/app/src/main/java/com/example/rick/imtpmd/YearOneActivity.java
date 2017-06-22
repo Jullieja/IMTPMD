@@ -3,11 +3,13 @@ package com.example.rick.imtpmd;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -90,6 +92,27 @@ public class YearOneActivity extends AppCompatActivity {
                 logginuser.setId(Integer.parseInt(user_id));
             }
 
+
+        /*ACTIONBARCREATE*/
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_actionbar);
+        View view =getSupportActionBar().getCustomView();
+        ImageButton imageButton= (ImageButton)view.findViewById(R.id.go_b_button);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), PickYearActivity.class);
+                Bundle c = new Bundle();
+                c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                intent.putExtras(c);
+                startActivity(intent);
+            }
+        });
+
+        /*//ACTIONBARCREATE*/
+
             Log.i("INFO", " : " + username + " " + user_id + " " + spec);
 
             DatabaseHelper dbHelper = DatabaseHelper.getHelper(YearOneActivity.this);
@@ -149,7 +172,7 @@ public class YearOneActivity extends AppCompatActivity {
                      //b.putString("user_id",String.valueOf(logginuser.getId()));
                      c.putString("vak",vakModels.get(position).getName());
                      c.putString("cijfer",vakModels.get(position).getGrade());
-                     c.putString("jaar","1");
+                     c.putString("jaar",b.getString("jaar"));
                      intent.putExtras(c);
 
                      startActivity(intent);
