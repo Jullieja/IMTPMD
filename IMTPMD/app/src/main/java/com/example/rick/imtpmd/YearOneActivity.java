@@ -96,12 +96,13 @@ public class YearOneActivity extends AppCompatActivity {
 
             DatabaseHelper dbHelper = DatabaseHelper.getHelper(YearOneActivity.this);
             Cursor rs = dbHelper.query(DatabaseInfo.CourseTables.user,new String[]{"*"/*"vak_name = "+b.getString("vak")*/},"user_id = '"+b.getStringArrayList("userGegevens").get(0)+"'" ,null,null,null,null);
-            int rijenteller = rs.getCount();
-            rs.moveToFirst();
+            //int rijenteller = rs.getCount();
+
 
 
             int j=0;
-            if (rs != null) {
+            if (rs != null && rs.moveToFirst()) {
+                ;
                 do {
                     //Log.e("RIJ: " , j+ " #########################################");
                     j+=1;
@@ -152,6 +153,8 @@ public class YearOneActivity extends AppCompatActivity {
                      c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
                      //b.putString("user_id",String.valueOf(logginuser.getId()));
                      c.putString("vak",vakModels.get(position).getName());
+                     c.putString("cijfer",vakModels.get(position).getGrade());
+                     c.putString("jaar","1");
                      intent.putExtras(c);
 
                      startActivity(intent);

@@ -116,6 +116,7 @@ public class KeuzeVakActivity extends AppCompatActivity {
                     b.putString("user_id",String.valueOf(logginuser.getId()));
                     b.putString("spec", String.valueOf(logginuser.getSpec()));
                     b.putString("vak",vakModels.get(position).getName());
+
                     intent.putExtras(b);
                     startActivity(intent);
 

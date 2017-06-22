@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rick.imtpmd.Database.DatabaseHelper;
@@ -26,6 +27,8 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
         ArrayList<String> userGegevens;
         Button save = (Button) findViewById(R.id.save);
+        TextView vaknaam = (TextView) findViewById(R.id.vaknaam);
+        final EditText cijfer = (EditText) findViewById(R.id.grade);
 
         Bundle b = getIntent().getExtras();
         if (b != null) {
@@ -36,22 +39,21 @@ public class EditActivity extends AppCompatActivity {
             Toast t = Toast.makeText(EditActivity.this,"Click " + vak+user_id,Toast.LENGTH_SHORT);
             t.show();
         }
-
-
+        vaknaam.setText(b.getString("vak"));
+        cijfer.setText(b.getString("cijfer"));
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 Bundle b = getIntent().getExtras();
-                EditText cijfer = (EditText) findViewById(R.id.grade);
-                CheckBox behaald = (CheckBox) findViewById(R.id.passed);
+                //CheckBox behaald = (CheckBox) findViewById(R.id.passed);
                 //String txtelement = cijfer.getText().toString();
-                Boolean isPassed = behaald.isChecked();
+                //Boolean isPassed = behaald.isChecked();
 
                 Log.e("user_id", b.getStringArrayList("userGegevens").get(0));
                 Log.e("vak", b.getString("vak"));
                 Log.e("cijfer", cijfer.getText().toString());
-                Log.e("behaald", String.valueOf(isPassed));
+                //Log.e("behaald", String.valueOf(isPassed));
 
                 DatabaseHelper dbHelper = DatabaseHelper.getHelper(EditActivity.this);
 
@@ -63,8 +65,18 @@ public class EditActivity extends AppCompatActivity {
                     ContentValues values = new ContentValues();
                     values.put(DatabaseInfo.CourseColumn.vak_name,b.getString("vak"));
                     values.put(DatabaseInfo.CourseColumn.user_id,b.getStringArrayList("userGegevens").get(0));
-                    values.put(DatabaseInfo.CourseColumn.grade,cijfer.getText().toString());
-                    values.put(DatabaseInfo.CourseColumn.passed,String.valueOf(isPassed));
+                    String cijfer_str_toint = cijfer.getText().toString();
+
+                    float cijfer_int = Float.parseFloat(cijfer_str_toint);
+                    if((cijfer_int <= 10)) {
+                        values.put(DatabaseInfo.CourseColumn.grade, cijfer.getText().toString());
+                        if (cijfer_int >= 5.5) {
+                            values.put(DatabaseInfo.CourseColumn.passed, String.valueOf(true));
+                        } else {
+                            values.put(DatabaseInfo.CourseColumn.passed, String.valueOf(false));
+                        }
+                    }
+
                     //dbHelper.update(DatabaseInfo.CourseTables.user, values ,"user_id = '"+b.getStringArrayList("userGegevens").get(0)+"'",null);
                     dbHelper.update(DatabaseInfo.CourseTables.user, values ,"user_id = ? AND vak_name = ? ",new String[]{b.getStringArrayList("userGegevens").get(0),b.getString("vak")});
 
@@ -77,7 +89,7 @@ public class EditActivity extends AppCompatActivity {
                     values.put(DatabaseInfo.CourseColumn.vak_name,b.getString("vak"));
                     values.put(DatabaseInfo.CourseColumn.user_id,b.getStringArrayList("userGegevens").get(0));
                     values.put(DatabaseInfo.CourseColumn.grade,cijfer.getText().toString());
-                    values.put(DatabaseInfo.CourseColumn.passed,String.valueOf(isPassed));
+                    //values.put(DatabaseInfo.CourseColumn.passed,String.valueOf(isPassed));
                     dbHelper.insert(DatabaseInfo.CourseTables.user,null,values);
                 }
                 /*
@@ -98,13 +110,24 @@ public class EditActivity extends AppCompatActivity {
                 /**/
 
 
+                Intent intent = new Intent(EditActivity.this, PickYearActivity.class);
+                switch(b.getString("jaar")){
+                    case "1":
+                         intent = new Intent(EditActivity.this, YearOneActivity.class);
+                        break;
+                    case "2":
+                         intent = new Intent(EditActivity.this, YearTwoActivity.class);
+                        break;
+                    case "34":
+                        intent = new Intent(EditActivity.this, YearThreeFourActivity.class);
+                        break;
+                }
 
-
-                Intent intent = new Intent(EditActivity.this, YearOneActivity.class);
                 Bundle c = new Bundle();
                 c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
                 intent.putExtras(c);
                 startActivity(intent);
+
             }
         });
     }
