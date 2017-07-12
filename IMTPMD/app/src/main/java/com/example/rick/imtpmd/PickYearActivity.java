@@ -119,6 +119,19 @@ public class PickYearActivity extends AppCompatActivity {
             }
         });
 
+        Button voortgang = (Button) findViewById(R.id.voortgang);
+        voortgang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("Knop voortgang", "Start VoortgangActivity");
+                Intent intent = new Intent(PickYearActivity.this, VoortgangActivity.class);
+                Bundle c = new Bundle();
+                c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                intent.putExtras(c);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

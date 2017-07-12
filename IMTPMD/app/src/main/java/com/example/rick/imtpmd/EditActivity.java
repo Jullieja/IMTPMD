@@ -125,27 +125,8 @@ public class EditActivity extends AppCompatActivity {
                         }
                     }
 
-                    //values.put(DatabaseInfo.CourseColumn.grade,cijfer.getText().toString());
-                    //values.put(DatabaseInfo.CourseColumn.passed,String.valueOf(isPassed));
                     dbHelper.insert(DatabaseInfo.CourseTables.user,null,values);
                 }
-
-                /*
-
-                rs.moveToFirst();
-
-
-                if (rs != null) {
-                    do {
-                        for (int i = 0; i < rs.getColumnCount(); i++) {
-                            Log.e("veld "+i+" :", "" + rs.getString(i));
-                        }
-                    }while (rs.moveToNext());
-                }
-                */
-
-
-                /**/
 
 
                 Intent intent = new Intent(EditActivity.this, PickYearActivity.class);
