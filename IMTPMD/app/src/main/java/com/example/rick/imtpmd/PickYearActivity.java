@@ -123,10 +123,11 @@ public class PickYearActivity extends AppCompatActivity {
         voortgang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("Knop voortgang", "Start VoortgangActivity");
-                Intent intent = new Intent(PickYearActivity.this, VoortgangActivity.class);
+                Log.d("Knop voortgang", "Start oortgangActivity");
+                Intent intent = new Intent(PickYearActivity.this, PieChartActivity.class);
                 Bundle c = new Bundle();
                 c.putStringArrayList("userGegevens", b.getStringArrayList("userGegevens"));
+                c.putString("spec", spec);
                 intent.putExtras(c);
                 startActivity(intent);
             }
